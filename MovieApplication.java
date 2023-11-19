@@ -13,16 +13,16 @@ public class MovieApplication {
     public static void main(String[] args) throws IOException {
         SpringApplication.run(MovieApplication.class);
 
-
         scheduler();
     }
 
     @Scheduled(cron = "0/5 * * * * *")
     public static void scheduler() throws IOException {
         MovieService movieService = new MovieService();
+        MessageService messageService = new MessageService();
 
         ArrayList movieList = movieService.getMovieList();
 
-        System.out.println(movieList);
+        messageService.send(movieList);
     }
 }
